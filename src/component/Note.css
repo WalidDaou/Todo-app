@@ -1,0 +1,126 @@
+/* Note.css */
+
+
+
+.priority-1 {
+  order: 1;
+}
+
+.priority-2 {
+  order: 2;
+}
+
+.priority-3 {
+  order: 3;
+}
+
+.priority-4 {
+  order: 4;
+}
+
+.Note {
+  margin: 20px;
+border: 1px solid white;
+border-radius: 15px;
+  width: 600px;
+  height: 150px;
+  min-width: 300px;
+  min-height: 150px;
+ background-color: rgb(29, 27, 27);
+}
+
+.noteText {
+  gap: 10px;
+  height: 500px;
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+}
+
+.noteED {
+  display: flex;
+  justify-content: space-between;
+  height: 150px;
+  padding: 0px;
+  margin: 0px;
+  align-items: center;
+  gap: 20px;
+  background-color: transparent;
+}
+
+.ED {
+  gap: 20px;
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  justify-content: center;
+}
+
+.MoveToDone {
+  background-color: rgb(144, 168, 168);
+  border-radius: 30px;
+  border: 1px solid white;
+  height: 30px;
+  width: 30px;
+}
+
+.Edit {
+  width: 50px;
+  height: 30px;
+  background-color: rgb(20, 228, 38);
+}
+
+.Delete {
+  width: 50px;
+  height: 30px;
+  background-color: rgb(247, 26, 10);
+}
+
+.save {
+  width: 200px;
+  height: 30px;
+  background-color: rgb(247, 98, 11);
+}
+
+.textare {
+  width: 200px;
+  height: 100px;
+}
+
+.text {
+  width: 400px;
+  height: 80px;
+font-size: 20px;
+  overflow: scroll;
+  padding-left:10px ;
+  color: red;
+}
+
+.stuff {
+  display: flex;
+  flex-direction: row;
+}
+
+.title {
+  font-size: 25px;
+  padding-left: 10px;
+  margin: 0px;
+  padding-right: 10px;
+  padding-top: 0px;
+  border: 0px;
+color: white;
+overflow: hidden;
+width: 400px;
+}
+.titext{
+ margin-left: 20px;
+}
+.Priority{
+  color: orange;
+}
+.capr{
+  display: flex;
+ margin-left: 20px;
+  flex-direction: column;
+  gap :20px;
+}
