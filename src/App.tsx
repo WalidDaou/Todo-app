@@ -4,6 +4,7 @@ import NotesList from './component/NotesList';
 import SearchNote from './component/SearchNote';
 import Searchinput from './component/SearchInput';
 import './main.css';
+import '@fortawesome/fontawesome-free/css/all.css';
 
 type Note = {
   id: number;

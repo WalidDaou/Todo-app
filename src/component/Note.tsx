@@ -27,11 +27,16 @@ function Note({
 
 }: NoteProps) {
   const [isEditing, setEditing] = useState(false);
-
   const [editedText, setEditedText] = useState(text);
+  const [isMoveToDoneClicked, setMoveToDoneClicked] = useState(false); 
 
   const handleEditClick = () => {
     setEditing(true);
+  };
+
+  const handleMoveToDoneClick = () => {
+    setMoveToDoneClicked(true);
+    onMoveToDone(id);
   };
 
   const handleSaveClick = () => {
@@ -85,16 +90,22 @@ function Note({
             </div>
             <div className='ED'>
               <div>
-                <button onClick={() => onMoveToDone(id)} className='MoveToDone'>
-                  +
-                </button>
+              <button
+                  onClick={handleMoveToDoneClick}
+                  className={`MoveToDone ${
+                    isMoveToDoneClicked ? 'clicked' : ''
+                  }`}
+                ></button>
+                 
+              
               </div>
+              <div className='edidel'>
               <button onClick={handleEditClick} className='Edit'>
-                Edit
+              <i className="fa-solid fa-pen"></i>
               </button>
               <button onClick={() => onDelete(id)} className='Delete'>
-                Delete
-              </button>
+              <div className="fa-sharp fa-solid fa-trash" ></div>
+              </button></div>
             </div>
 
           </div>
