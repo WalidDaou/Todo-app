@@ -28,9 +28,12 @@ border: 0px;
 .Active{
     font-size: 30px;
     margin-left :35px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 
 }
 .Done{
     font-size: 30px;
     margin-left :35px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
+

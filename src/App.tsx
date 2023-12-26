@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect  } from 'react';
 import AddNoteForm from './component/AddNoteForm';
 import NotesList from './component/NotesList';
 import SearchNote from './component/SearchNote';
@@ -31,6 +31,21 @@ const App = () => {
     );
   };
 
+  const handleEditCategoryPriority = (noteId: string, id: number, newCategory: string, newPriority: number) => {
+    setNotes((prevNotes) =>
+      prevNotes.map((note) =>
+        note.id === id
+          ? {
+              ...note,
+              category: newCategory,
+              priority: newPriority,
+            }
+          : note
+      )
+    );
+  };
+  
+
   const handleAdd = (title: string, text: string, priority: number, category: string) => {
     const newNote: Note = {
       id: new Date().getTime(),
@@ -42,7 +57,14 @@ const App = () => {
     };
     setNotes((prevNotes) => [...prevNotes, newNote]);
     setAddNoteFormVisible(false); // Hide the AddNoteForm after adding a note
+  
+    console.log('Saved Note:', newNote);
+
+    // You can also log the updated list of notes if needed
+    console.log('Updated Notes:', [...notes, newNote]);
+  
   };
+  
 
   const handleMoveToDone = (id: number) => {
     setNotes((prevNotes) =>
@@ -72,6 +94,18 @@ const App = () => {
   };
 
 
+  useEffect(() => {
+    const storedNotes = localStorage.getItem('notes');
+    if (storedNotes) {
+      setNotes(JSON.parse(storedNotes));
+    }
+  }, []);
+  useEffect(() => {
+    localStorage.setItem('notes', JSON.stringify(notes));
+  }, [notes]);
+    
+
+
   return (
     <div onClick={handleAddNoteFormOutsideClick}>
       <div className='taskX'> <h2 className='task'>tasX</h2> <h2 className='get'>-get things done</h2></div>
@@ -95,7 +129,8 @@ const App = () => {
             onDelete={handleDelete}
             onEdit={handleEdit}
             onMoveToDone={handleMoveToDone}
-            searchQuery={searchQuery} />
+            searchQuery={searchQuery} 
+                  onEditCategoryPriority={handleEditCategoryPriority}/>
         </div>
       )}
       <NotesList
@@ -104,6 +139,7 @@ const App = () => {
         onEdit={handleEdit}
         onMoveToDone={handleMoveToDone}
         searchQuery={searchQuery}
+         onEditCategoryPriority={handleEditCategoryPriority}
       />
 
 
