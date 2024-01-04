@@ -8,6 +8,7 @@ interface NoteItem {
   title: string;
   text: string;
   priority: number;
+  days:string;
   category: string;
   done: boolean;
   
@@ -47,6 +48,7 @@ function SearchInput({ notes, onEdit, onDelete, onMoveToDone, searchQuery,onEdit
             id={note.id}
             title={note.title}
             text={note.text}
+            days={note.days}
             priority={note.priority}
             category={note.category}
             onDelete={() => onDelete(note.id)}

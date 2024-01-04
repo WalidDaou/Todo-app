@@ -1,7 +1,6 @@
-// NotesList.js
-import React from 'react';
+import React, { useState } from 'react';
 import Note from './Note';
-import "./NotesList.css"
+import "./NotesList.css";
 
 interface NoteItem {
   id: number;
@@ -9,8 +8,8 @@ interface NoteItem {
   text: string;
   priority: number;
   category: string;
+  days: string;
   done: boolean;
-
 }
 
 interface NotesListProps {
@@ -23,8 +22,14 @@ interface NotesListProps {
 }
 
 function NotesList({ notes, onEdit, onDelete, onMoveToDone, searchQuery, onEditCategoryPriority }: NotesListProps) {
-  const sortedNotes = [...notes].sort((a, b) => a.priority - b.priority);
-  
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
+
+  const sortedNotes = [...notes].sort((a, b) => {
+    const dateA = new Date(a.days).getTime();
+    const dateB = new Date(b.days).getTime();
+
+    return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
+  });
 
   const activeNotes = sortedNotes.filter((note) => !note.done);
   const doneNotes = sortedNotes.filter((note) => note.done);
@@ -33,17 +38,24 @@ function NotesList({ notes, onEdit, onDelete, onMoveToDone, searchQuery, onEditC
     note.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const toggleSortOrder = () => {
+    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+  };
+
   return (
     <div className='notes-container'>
       <div className='active-notes'>
         <div className='donee'>
           <h2 className='Active'>Active Notes</h2>
           <div className='acds'>
-            <button id='fa' className='asc'>  <i className="fa-solid fa-caret-up" /></button>
-            <button id='fa' className='desc' >  <i className="fa-solid fa-caret-down" /></button>
+            <button id='fa' className='asc' onClick={toggleSortOrder}>
+              <i className="fa-solid fa-caret-up" />
+            </button>
+            <button id='fa' className='desc' onClick={toggleSortOrder}>
+              <i className="fa-solid fa-caret-down" />
+            </button>
           </div>
         </div>
-
         {filteredNotes.length > 0 ? (
           activeNotes.map((note) => (
             <Note
@@ -52,13 +64,13 @@ function NotesList({ notes, onEdit, onDelete, onMoveToDone, searchQuery, onEditC
               title={note.title}
               text={note.text}
               priority={note.priority}
+              days={note.days}
               category={note.category}
               onDelete={() => onDelete(note.id)}
               onEdit={(newText: string) => onEdit(note.id, newText)}
               onMoveToDone={() => onMoveToDone(note.id)}
-              // @ts-ignore
+              //@ts-ignore
               onEditCategoryPriority={(newCategory: string, newPriority: number) => onEditCategoryPriority(note.id, newCategory, newPriority)}
-
             />
           ))
         ) : (
@@ -69,9 +81,12 @@ function NotesList({ notes, onEdit, onDelete, onMoveToDone, searchQuery, onEditC
         <div className='donee'>
           <h2 className='Done'>Done Items</h2>
           <div className='acds'>
-            <button id='fa' className='asc'>  <i className="fa-solid fa-caret-up" /></button>
-            <button id='fa' className='desc' >  <i className="fa-solid fa-caret-down" /></button>
-
+            <button id='fa' className='asc' onClick={toggleSortOrder}>
+              <i className="fa-solid fa-caret-up" />
+            </button>
+            <button id='fa' className='desc' onClick={toggleSortOrder}>
+              <i className="fa-solid fa-caret-down" />
+            </button>
           </div>
         </div>
         {filteredNotes.length > 0 ? (
@@ -82,11 +97,12 @@ function NotesList({ notes, onEdit, onDelete, onMoveToDone, searchQuery, onEditC
               title={note.title}
               text={note.text}
               priority={note.priority}
+              days={note.days}
               category={note.category}
               onDelete={() => onDelete(note.id)}
               onEdit={(newText: string) => onEdit(note.id, newText)}
               onMoveToDone={() => onMoveToDone(note.id)}
-              // @ts-ignore
+              //@ts-ignore
               onEditCategoryPriority={(newCategory: string, newPriority: number) => onEditCategoryPriority(note.id, newCategory, newPriority)}
             />
           ))
@@ -94,11 +110,8 @@ function NotesList({ notes, onEdit, onDelete, onMoveToDone, searchQuery, onEditC
           <p>No done items found.</p>
         )}
       </div>
-
-
     </div>
   );
 }
-
 
 export default NotesList;

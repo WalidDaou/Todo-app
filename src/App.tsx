@@ -12,6 +12,7 @@ type Note = {
   text: string;
   priority: number;
   category: string;
+  days: string;
   done: boolean;
 };
 
@@ -47,12 +48,14 @@ const App = () => {
 
 
 
-  const handleAdd = (title: string, text: string, priority: number, category: string) => {
+
+  const handleAdd = (title: string, text: string, priority: number, category: string, days: string,) => {
     const newNote: Note = {
       id: new Date().getTime(),
       title: title,
       text: text,
       priority: priority,
+      days: days,
       category: category,
       done: false,
     };
@@ -106,7 +109,7 @@ const App = () => {
   }, [notes]);
 
 
- 
+
   return (
     <div onClick={handleAddNoteFormOutsideClick}>
       <div className='taskX'> <h2 className='task'>tasX</h2> <h2 className='get'>-get things done</h2></div>

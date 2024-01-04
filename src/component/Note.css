@@ -58,7 +58,7 @@
   gap: 20px;
   display: flex;
   flex-direction: column;
-  margin-left: 20px;
+
   justify-content: space-between;
   align-items: center;
   margin-right: 20px;
@@ -146,11 +146,12 @@
   border: 0px;
   color: white;
   overflow: hidden;
-  width: 400px;
+  width: 200px;
 }
 
 .titext {
   margin-left: 20px;
+  margin-right: 65px;
 }
 
 .Priority {
@@ -213,4 +214,12 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+.Date{
+
+display: flex;
+flex-direction: row;
+width: 140px;
+gap: 10px;
+color: white;
 }

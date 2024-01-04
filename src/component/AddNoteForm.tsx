@@ -3,12 +3,13 @@ import React, { useState } from 'react';
 import './addNoteForm.css';
 
 interface AddNoteFormProps {
-  onAdd: (title: string, text: string, priority: number, category: string) => void;
+  onAdd: (title: string, text: string, priority: number, category: string ,days:string) => void;
 }
 
 const AddNoteForm: React.FC<AddNoteFormProps> = ({ onAdd }) => {
   const [title, setTitle] = useState('');
   const [text, setText] = useState('');
+  const [days, setDays] = useState('')
   const [priority, setPriority] = useState(1); // Default priority
   const [category, setCategory] = useState('home'); // Default category
   const [ErrorMassege, setErrorMassege] = useState('')
@@ -19,29 +20,31 @@ const AddNoteForm: React.FC<AddNoteFormProps> = ({ onAdd }) => {
     } else if (text.trim() === '') {
       setErrorMassege('Please enter note text.');
     } else {
-      onAdd(title, text, priority, category);
+      onAdd(title, text, priority, category,days);
       setTitle('');
       setText('');
       setPriority(1);
       setCategory('home');
-      setErrorMassege(''); // Clear the error message
-  }
-    };
+      setErrorMassege('');
+      setDays('');
+    }
+  };
 
-    return (
+  return (
 
 
-      <div className='addNote'>
-        <input className='titl' type="text" placeholder='Title' value={title} onChange={(e) => setTitle(e.target.value)} />
-        <div style={{ color: 'red', marginBottom: '8px' }}>{ErrorMassege}</div>
-        <textarea
-          className='addText'
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-        />
+    <div className='addNote'>
+      <input className='titl' type="text" placeholder='Title' value={title} onChange={(e) => setTitle(e.target.value)} />
+      <div style={{ color: 'red', marginBottom: '8px' }}>{ErrorMassege}</div>
+      <textarea
+        className='addText'
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+      />
+      <div className='daypri'>
         <div className='Priority'>
-          Days:<label>
-            
+        Priority:<label>
+
             <input
               type="radio"
               value={1}
@@ -78,23 +81,38 @@ const AddNoteForm: React.FC<AddNoteFormProps> = ({ onAdd }) => {
             4
           </label>
         </div>
-        <div>
-          <label>Category:</label>
-          <select
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          >
-            <option value="home">Home</option>
-            <option value="stuff">Stuff</option>
-            <option value="hobby">Hobby</option>
-            <option value="fun">Fun</option>
-          </select>
-        </div>
-        <button className='click' onClick={handleAddClick}>
-          Add Note
-        </button>
-      </div>
-    );
-  };
 
-  export default AddNoteForm;
+        <div className='Priority'>
+          Days:<label>
+
+            <input
+              type="date"
+              value={1}
+              checked={priority === 1}
+              onChange={(e) => setDays(e.target.value)}
+            />
+           
+          </label>
+          
+        </div>
+      </div>
+      <div>
+        <label>Category:</label>
+        <select
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        >
+          <option value="home">Home</option>
+          <option value="stuff">Stuff</option>
+          <option value="hobby">Hobby</option>
+          <option value="fun">Fun</option>
+        </select>
+      </div>
+      <button className='click' onClick={handleAddClick}>
+        Add Note
+      </button>
+    </div>
+  );
+};
+
+export default AddNoteForm;

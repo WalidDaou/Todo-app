@@ -6,11 +6,13 @@ interface NoteProps {
   title: string;
   text: string;
   priority: number;
+  days :string;
   category: string;
   onEdit: (newText: string) => void;
   onDelete: Function;
   onMoveToDone: (id: number) => void;
   onEditCategoryPriority: (newCategory: string, newPriority: number) => void;
+
 }
 
 function Note({
@@ -18,6 +20,7 @@ function Note({
   title,
   text,
   priority,
+  days,
   category,
   onEdit,
   onDelete,
@@ -77,7 +80,7 @@ function Note({
             <div className='pricat'>
               <div className='PRIORITY'>
                 <label>
-                  Days:
+                Priority :
                   <input
                     type="radio"
                     value={1}
@@ -142,7 +145,8 @@ function Note({
               <p className='text'>{text}</p>
             </div>
             <div className='capr'>
-              <p className='Priority'>Days:{priority}</p>
+              <p className='Priority'>Priority:{priority}</p>
+              <p className='Date'><div>Date:</div><div>{days}</div></p>
               <p style={{ backgroundColor: getBackgroundColor() }} className='Category'>
                 {category}
               </p>
