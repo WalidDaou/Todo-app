@@ -52,7 +52,8 @@ function SearchInput({ notes, onEdit, onDelete, onMoveToDone, searchQuery,onEdit
             onDelete={() => onDelete(note.id)}
             onEdit={(newText: string) => onEdit(note.id, newText)}
             onMoveToDone={() => onMoveToDone(note.id)}
-            onEditCategoryPriority={(newCategory: string ,newPriority :number) => onEditCategoryPriority(note.id,newCategory,newPriority )}
+               // @ts-ignore
+            onEditCategoryPriority={(newCategory: string, newPriority: number) => onEditCategoryPriority(note.id, newCategory, newPriority)}
            
             />
           ))

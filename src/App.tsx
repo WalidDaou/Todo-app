@@ -1,4 +1,4 @@
-import React, { useState, useEffect  } from 'react';
+import React, { useState, useEffect } from 'react';
 import AddNoteForm from './component/AddNoteForm';
 import NotesList from './component/NotesList';
 import SearchNote from './component/SearchNote';
@@ -31,20 +31,21 @@ const App = () => {
     );
   };
 
-  const handleEditCategoryPriority = (noteId: string, id: number, newCategory: string, newPriority: number) => {
+  const handleEditCategoryPriority = (id: number, newCategory: string, newPriority: number) => {
     setNotes((prevNotes) =>
       prevNotes.map((note) =>
         note.id === id
           ? {
-              ...note,
-              category: newCategory,
-              priority: newPriority,
-            }
+            ...note,
+            category: newCategory,
+            priority: newPriority,
+          }
           : note
       )
     );
   };
-  
+
+
 
   const handleAdd = (title: string, text: string, priority: number, category: string) => {
     const newNote: Note = {
@@ -57,14 +58,14 @@ const App = () => {
     };
     setNotes((prevNotes) => [...prevNotes, newNote]);
     setAddNoteFormVisible(false); // Hide the AddNoteForm after adding a note
-  
+
     console.log('Saved Note:', newNote);
 
     // You can also log the updated list of notes if needed
     console.log('Updated Notes:', [...notes, newNote]);
-  
+
   };
-  
+
 
   const handleMoveToDone = (id: number) => {
     setNotes((prevNotes) =>
@@ -101,11 +102,11 @@ const App = () => {
     }
   }, []);
   useEffect(() => {
-    localStorage.setItem('notes', JSON.stringify(notes));
+    window.localStorage.setItem('notes', JSON.stringify(notes));
   }, [notes]);
-    
 
 
+ 
   return (
     <div onClick={handleAddNoteFormOutsideClick}>
       <div className='taskX'> <h2 className='task'>tasX</h2> <h2 className='get'>-get things done</h2></div>
@@ -123,14 +124,13 @@ const App = () => {
       <div className='lignee'><div className='ligne'></div></div>
       {isFilteredNotesVisible && (
         <div className='filtered-notes'>
-          {/* Render filtered notes here */}
-          {/* ... (existing JSX code) */}
           <Searchinput notes={notes}
             onDelete={handleDelete}
             onEdit={handleEdit}
             onMoveToDone={handleMoveToDone}
-            searchQuery={searchQuery} 
-                  onEditCategoryPriority={handleEditCategoryPriority}/>
+            searchQuery={searchQuery}
+            // @ts-ignore
+            onEditCategoryPriority={handleEditCategoryPriority} />
         </div>
       )}
       <NotesList
@@ -139,7 +139,8 @@ const App = () => {
         onEdit={handleEdit}
         onMoveToDone={handleMoveToDone}
         searchQuery={searchQuery}
-         onEditCategoryPriority={handleEditCategoryPriority}
+        // @ts-ignore
+        onEditCategoryPriority={handleEditCategoryPriority}
       />
 
 

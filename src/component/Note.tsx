@@ -1,11 +1,9 @@
-// Note.tsx
-
 import React, { useState } from 'react';
 import './Note.css';
 
 interface NoteProps {
   id: number;
-  title: string
+  title: string;
   text: string;
   priority: number;
   category: string;
@@ -39,8 +37,8 @@ function Note({
   };
 
   const handleMoveToDoneClick = () => {
-    setMoveToDoneClicked(true);
     onMoveToDone(id);
+    setMoveToDoneClicked(!isMoveToDoneClicked);
   };
 
   const handleSaveClick = () => {
@@ -48,6 +46,7 @@ function Note({
     onEditCategoryPriority(editedCategory, editedPriority);
     setEditing(false);
   };
+
   const getBackgroundColor = () => {
     switch (category) {
       case 'home':
@@ -64,13 +63,10 @@ function Note({
   };
 
 
-
   return (
-
-
     <div className={`Note priority-${priority}`}>
       {isEditing ? (
-        <>
+        <div className='noteEdit'>
           <div className='noteText'>
             <textarea
               className='textare'
@@ -78,17 +74,18 @@ function Note({
               onChange={(e) => setEditedText(e.target.value)}
               rows={4}
             />
-            <div className='PRIORITY'>
-              <div className='pricat'><label>
-              Days:
-                <input
-                  type="radio"
-                  value={1}
-                  checked={editedPriority === 1}
-                  onChange={() => setEditedPriority(1)}
-                />
-                1
-              </label>
+            <div className='pricat'>
+              <div className='PRIORITY'>
+                <label>
+                  Days:
+                  <input
+                    type="radio"
+                    value={1}
+                    checked={editedPriority === 1}
+                    onChange={() => setEditedPriority(1)}
+                  />
+                  1
+                </label>
                 <label>
                   <input
                     type="radio"
@@ -115,66 +112,70 @@ function Note({
                     onChange={() => setEditedPriority(4)}
                   />
                   4
-                </label></div>
-
-              <div>
-                <div className='editedCategory'>
-                  <label className='Cate'>Category:</label>
-                  <div className='CATEGORY'>
-                    <select
-                      value={editedCategory}
-                      onChange={(e) => setEditedCategory(e.target.value)}
-                    >
-                      <option value="home">Home</option>
-                      <option value="stuff">Stuff</option>
-                      <option value="hobby">Hobby</option>
-                      <option value="fun">Fun</option>
-                    </select>
-                  </div></div>
-                <button onClick={handleSaveClick} className='save'>
-                  Save
-                </button>
+                </label>
+              </div>
+              <div className='editedCategory'>
+                <label className='Cate'>Category:</label>
+                <div className='CATEGORY'>
+                  <select
+                    value={editedCategory}
+                    onChange={(e) => setEditedCategory(e.target.value)}
+                  >
+                    <option value="home">Home</option>
+                    <option value="stuff">Stuff</option>
+                    <option value="hobby">Hobby</option>
+                    <option value="fun">Fun</option>
+                  </select>
+                </div>
               </div>
             </div>
           </div>
-
-        </>
+          <button onClick={handleSaveClick} className='save'>
+            Save
+          </button>
+        </div>
       ) : (
-        <>
-          <div className='noteED'>
-            <div className='stuff'>
-              <div className='titext'>
-                <p className='title'>{title}</p>
-                <p className='text'>{text}</p>
-              </div>
-              <div className='capr'> <p className='Priority'>Days:{priority}</p>
-                <p style={{ backgroundColor: getBackgroundColor() }} className='Category'> {category}</p>
-              </div>
+        <div className='noteED'>
+          <div className='stuff'>
+            <div className='titext'>
+              <p className='title'>{title}</p>
+              <p className='text'>{text}</p>
             </div>
-            <div className='ED'>
-              <div>
-                <button
-                  onClick={handleMoveToDoneClick}
-                  className={`MoveToDone ${isMoveToDoneClicked ? 'clicked' : ''
-                    }`}
-                ></button>
-
-
-              </div>
-              <div className='edidel'>
-                <button onClick={handleEditClick} className='Edit'>
-                  <i className="fa-solid fa-pen"></i>
-                </button>
-                <button onClick={() => onDelete(id)} className='Delete'>
-                  <div className="fa-sharp fa-solid fa-trash" ></div>
-                </button></div>
+            <div className='capr'>
+              <p className='Priority'>Days:{priority}</p>
+              <p style={{ backgroundColor: getBackgroundColor() }} className='Category'>
+                {category}
+              </p>
             </div>
-
           </div>
-        </>
-      )
-      }
-    </div >
+          <div className='ED'>
+            <div>
+
+              <button
+                onClick={handleMoveToDoneClick}
+                className='MoveToDone'
+              />
+
+            </div>
+          
+            {isMoveToDoneClicked && (
+        <div onClick={handleMoveToDoneClick} className='check'>
+          <i className="fa-solid fa-check"></i>
+        </div>
+      )}
+
+            <div className='edidel'>
+              <button onClick={handleEditClick} className='Edit'>
+                <i className="fa-solid fa-pen"></i>
+              </button>
+              <button onClick={() => onDelete(id)} className='Delete'>
+                <div className="fa-sharp fa-solid fa-trash"></div>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
 

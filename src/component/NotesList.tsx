@@ -22,8 +22,9 @@ interface NotesListProps {
   onEditCategoryPriority: (newCategory: string, newPriority: number) => void;
 }
 
-function NotesList({ notes, onEdit, onDelete, onMoveToDone, searchQuery,onEditCategoryPriority }: NotesListProps) {
+function NotesList({ notes, onEdit, onDelete, onMoveToDone, searchQuery, onEditCategoryPriority }: NotesListProps) {
   const sortedNotes = [...notes].sort((a, b) => a.priority - b.priority);
+  
 
   const activeNotes = sortedNotes.filter((note) => !note.done);
   const doneNotes = sortedNotes.filter((note) => note.done);
@@ -35,7 +36,14 @@ function NotesList({ notes, onEdit, onDelete, onMoveToDone, searchQuery,onEditCa
   return (
     <div className='notes-container'>
       <div className='active-notes'>
-        <h2 className='Active'>Active Notes</h2>
+        <div className='donee'>
+          <h2 className='Active'>Active Notes</h2>
+          <div className='acds'>
+            <button id='fa' className='asc'>  <i className="fa-solid fa-caret-up" /></button>
+            <button id='fa' className='desc' >  <i className="fa-solid fa-caret-down" /></button>
+          </div>
+        </div>
+
         {filteredNotes.length > 0 ? (
           activeNotes.map((note) => (
             <Note
@@ -48,8 +56,9 @@ function NotesList({ notes, onEdit, onDelete, onMoveToDone, searchQuery,onEditCa
               onDelete={() => onDelete(note.id)}
               onEdit={(newText: string) => onEdit(note.id, newText)}
               onMoveToDone={() => onMoveToDone(note.id)}
-              onEditCategoryPriority={(newCategory: string ,newPriority :number) => onEditCategoryPriority(note.id,newCategory,newPriority )}
-             
+              // @ts-ignore
+              onEditCategoryPriority={(newCategory: string, newPriority: number) => onEditCategoryPriority(note.id, newCategory, newPriority)}
+
             />
           ))
         ) : (
@@ -57,28 +66,35 @@ function NotesList({ notes, onEdit, onDelete, onMoveToDone, searchQuery,onEditCa
         )}
       </div>
       <div className='done-notes'>
-        <h2 className='Done'>Done Items</h2>
+        <div className='donee'>
+          <h2 className='Done'>Done Items</h2>
+          <div className='acds'>
+            <button id='fa' className='asc'>  <i className="fa-solid fa-caret-up" /></button>
+            <button id='fa' className='desc' >  <i className="fa-solid fa-caret-down" /></button>
+
+          </div>
+        </div>
         {filteredNotes.length > 0 ? (
           doneNotes.map((note) => (
             <Note
-            key={note.id}
-            id={note.id}
-            title={note.title}
-            text={note.text}
-            priority={note.priority}
-            category={note.category}
-            onDelete={() => onDelete(note.id)}
-            onEdit={(newText: string) => onEdit(note.id, newText)}
-            onMoveToDone={() => onMoveToDone(note.id)}
-            onEditCategoryPriority={(newCategory: string ,newPriority :number) => onEditCategoryPriority(note.id,newCategory,newPriority )}
-           
+              key={note.id}
+              id={note.id}
+              title={note.title}
+              text={note.text}
+              priority={note.priority}
+              category={note.category}
+              onDelete={() => onDelete(note.id)}
+              onEdit={(newText: string) => onEdit(note.id, newText)}
+              onMoveToDone={() => onMoveToDone(note.id)}
+              // @ts-ignore
+              onEditCategoryPriority={(newCategory: string, newPriority: number) => onEditCategoryPriority(note.id, newCategory, newPriority)}
             />
           ))
         ) : (
           <p>No done items found.</p>
         )}
       </div>
-     
+
 
     </div>
   );
